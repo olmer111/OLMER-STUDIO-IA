@@ -70,7 +70,19 @@
 <section class="view" id="view-projects"><div class="section-head"><div><h3>Proyectos</h3><p>Tus borradores guardados en este navegador.</p></div><button class="primary" id="newProject">+ Nuevo</button></div><div id="projectsList" class="module-grid"></div><div class="notice">Los proyectos se guardan localmente en este dispositivo. Aún no existe sincronización entre dispositivos ni cuenta de usuario.</div></section>
 <section class="view" id="view-production"><div class="section-head"><div><h3>Centro de producción</h3><p>Control de aprobación y estado por escena.</p></div><span class="pill"><i class="statusdot"></i>Sin gasto</span></div><div class="panel glass"><div class="stats"><div class="stat"><strong id="queueCount">0</strong><span>En cola</span></div><div class="stat"><strong id="queueApproved">0</strong><span>Aprobadas</span></div><div class="stat"><strong>0</strong><span>Imágenes generadas</span></div></div><div class="notice">La generación de imágenes, la voz y el render de vídeo no están conectados todavía. Este panel no fingirá trabajos reales: las escenas aprobadas quedan listas para una futura integración gratuita.</div><button class="secondary wide" id="goStoryboard" style="margin-top:15px">Volver al storyboard</button></div></section>
 <section class="view" id="view-plan"><div class="section-head"><div><h3>Plan maestro · 50 módulos</h3><p>Arquitectura conceptual organizada en una interfaz simple.</p></div><span class="pill">50 módulos</span></div><div class="module-grid" id="modules"></div><div class="notice">Los módulos describen el plan aprobado; no significa que todas las integraciones estén implementadas. Estado transparente, gasto cero y autorización humana para acciones sensibles.</div></section>
-<section class="view" id="view-settings"><div class="section-head"><div><h3>Privacidad y controles</h3><p>Configuración conservadora por defecto.</p></div></div><section class="panel glass" style="margin-bottom:18px"><h4 class="panel-title"><span class="step">AI</span> Conexión con proveedores</h4><div class="field"><label for="agentProvider">Proveedor preferido del agente</label><select id="agentProvider"><option value="ollama">Ollama Cloud</option><option value="nvidia">NVIDIA NIM</option><option value="openrouter">OpenRouter</option></select><div class="help">La conexión se configura aquí; el creador utiliza el proveedor seleccionado.</div></div><p class="help" style="margin:0 0 14px">Las claves se configuran como secretos en Vercel, nunca en este HTML. Aquí puedes revisar el estado y copiar el nombre exacto de cada variable.</p><div id="providerCards" class="module-grid"><div class="empty" style="grid-column:1/-1">Consultando proveedores configurados…</div></div><button class="secondary wide" id="refreshProviders" style="margin-top:12px">↻ Actualizar estado de conexiones</button><div class="notice">Para activar un proveedor: Vercel → Settings → Environment Variables. Para imágenes añade HF_TOKEN. Por seguridad, generar imágenes exige además HF_IMAGE_ENABLED=true; no lo actives hasta revisar en Hugging Face los límites de uso y facturación, porque la cuota gratuita es pequeña y el uso adicional puede cobrarse. Luego guarda y despliega. Las claves nunca van en el HTML.</div></section><div class="panel glass"><div class="module-grid"><div class="module"><em>ACTIVA</em><b>Privacidad estricta</b><span>Enviar datos externos requiere integración y consentimiento.</span></div><div class="module"><em>ACTIVO</em><b>Gasto cero</b><span>No se autoriza ninguna compra ni API de pago.</span></div><div class="module"><em>ACTIVO</em><b>Publicación manual</b><span>No publicar ni borrar automáticamente.</span></div><div class="module"><em>ACTIVO</em><b>Guardar en dispositivo</b><span>Los borradores usan el almacenamiento local.</span></div></div><button class="secondary" id="clearData" style="margin-top:16px">Borrar datos locales…</button><div class="notice">Las claves secretas nunca deben ponerse en el navegador. Para conectar proveedores, se necesitará un backend seguro y revisar sus límites gratuitos.</div></div></section>
+<section class="view" id="view-settings"><div class="section-head"><div><h3>Privacidad y controles</h3><p>Configuración conservadora por defecto.</p></div></div><section class="panel glass" style="margin-bottom:18px"><h4 class="panel-title"><span class="step">AI</span> Conexión con proveedores</h4><div class="field"><label for="agentProvider">Proveedor preferido del agente</label><select id="agentProvider"><option value="ollama">Ollama Cloud</option><option value="nvidia">NVIDIA NIM</option><option value="openrouter">OpenRouter</option></select><div class="help">La conexión se configura aquí; el creador utiliza el proveedor seleccionado.</div></div><p class="help" style="margin:0 0 14px">Las claves se configuran como secretos en Vercel, nunca en este HTML. Aquí puedes revisar el estado y copiar el nombre exacto de cada variable.</p><div id="providerCards" class="module-grid"><div class="empty" style="grid-column:1/-1">Consultando proveedores configurados…</div></div><button class="secondary wide" id="refreshProviders" style="margin-top:12px">↻ Actualizar estado de conexiones</button><div class="notice">Para activar un proveedor: Vercel → Settings → Environment Variables. Para imágenes añade HF_TOKEN. Por seguridad, generar imágenes exige además HF_IMAGE_ENABLED=true; no lo actives hasta revisar en Hugging Face los límites de uso y facturación, porque la cuota gratuita es pequeña y el uso adicional puede cobrarse. Luego guarda y despliega. Las claves nunca van en el HTML.</div></section><section class="panel glass" id="audioStudio" style="margin-bottom:18px">
+<h4 class="panel-title"><span class="step">♪</span> Voz y audio · Kokoro</h4>
+<p class="help" style="margin:0 0 14px">Generador de narración autoalojado. La interfaz y el reproductor están preparados; el procesamiento permanece apagado hasta que conectes tu servidor y lo habilites manualmente.</p>
+<div class="field"><label for="ttsText">Texto para narrar</label><textarea id="ttsText" maxlength="6000" placeholder="Pega aquí la narración de tu vídeo o el texto de una escena…"></textarea><span class="help">Máximo 6.000 caracteres por solicitud. No se envía nada hasta pulsar Generar voz.</span></div>
+<div class="field"><label for="ttsVoice">Voz</label><select id="ttsVoice"><option value="af_heart">Heart · femenina</option><option value="af_bella">Bella · femenina</option><option value="af_nicole">Nicole · femenina</option><option value="af_sarah">Sarah · femenina</option><option value="af_sky">Sky · femenina</option><option value="am_adam">Adam · masculina</option><option value="am_michael">Michael · masculina</option><option value="bf_emma">Emma · británica</option><option value="bf_isabella">Isabella · británica</option><option value="bm_george">George · británica</option><option value="bm_lewis">Lewis · británica</option></select></div>
+<button class="primary wide" id="ttsGenerate">♫ Generar narración</button>
+<div id="ttsStatus" class="notice" role="status">Estado: apagado por seguridad. No se generan audios ni se consume procesamiento todavía.</div>
+<div id="ttsWaveform" style="min-height:54px;margin:12px 0;border-radius:12px;overflow:hidden"></div>
+<audio id="ttsPlayer" controls preload="none" style="display:none;width:100%;margin-top:10px"></audio>
+<button class="secondary wide" id="ttsDownload" style="display:none;margin-top:10px">Descargar narración MP3</button>
+<div class="help" style="margin-top:12px">Licencias: <a href="https://github.com/eduardolat/kokoro-web" target="_blank" rel="noreferrer" style="color:var(--cyan)">Kokoro Web · MIT</a> · <a href="https://github.com/katspaugh/wavesurfer.js" target="_blank" rel="noreferrer" style="color:var(--cyan)">WaveSurfer.js · BSD-3-Clause</a>. El coste de licencia es cero; el servidor, internet y electricidad siguen siendo tuyos.</div>
+</section>
+<div class="panel glass"><div class="module-grid"><div class="module"><em>ACTIVA</em><b>Privacidad estricta</b><span>Enviar datos externos requiere integración y consentimiento.</span></div><div class="module"><em>ACTIVO</em><b>Gasto cero</b><span>No se autoriza ninguna compra ni API de pago.</span></div><div class="module"><em>ACTIVO</em><b>Publicación manual</b><span>No publicar ni borrar automáticamente.</span></div><div class="module"><em>ACTIVO</em><b>Guardar en dispositivo</b><span>Los borradores usan el almacenamiento local.</span></div></div><button class="secondary" id="clearData" style="margin-top:16px">Borrar datos locales…</button><div class="notice">Las claves secretas nunca deben ponerse en el navegador. Para conectar proveedores, se necesitará un backend seguro y revisar sus límites gratuitos.</div></div></section>
 </main>
 <footer class="footer">OLMER STUDIO AI · MASTER 50 · Diseñado para móvil · Sin créditos de pago · Preview de trabajo</footer>
 </div>
@@ -143,6 +155,43 @@ async function refreshProviders(){const root=$('providerCards');root.innerHTML='
 try{$('agentProvider').value=localStorage.getItem('olmerAgentProvider')||'ollama'}catch{}$('agentProvider').addEventListener('change',()=>{try{localStorage.setItem('olmerAgentProvider',$('agentProvider').value)}catch{}toast('Proveedor preferido guardado en este dispositivo.')});
 $('refreshProviders').addEventListener('click',refreshProviders);
 $('providerCards').addEventListener('click',e=>{const c=e.target.closest('[data-copy-env]');if(c){GenUI.copy(c.dataset.copyEnv);toast('Nombre de variable copiado.');return}const u=e.target.closest('[data-provider-url]');if(u){const p=providerInfo[u.dataset.providerUrl];if(p)GenUI.openUrl(p.url)}});
+let ttsAudioUrl=null, waveSurfer=null;
+async function refreshTtsStatus(){
+  const status=$('ttsStatus'); if(!status)return;
+  try{
+    const r=await fetch('/api/status',{cache:'no-store'}); const d=await r.json();
+    const p=d.providers?.kokoro;
+    if(p?.configured&&p?.enabled){status.textContent='Estado: servidor configurado y habilitado. Pulsa Generar voz para procesar el texto.'}
+    else if(p?.configured){status.textContent='Estado: servidor indicado, pero generación apagada. Falta activar KOKORO_TTS_ENABLED=true en el backend cuando estés listo.'}
+    else{status.textContent='Estado: esperando servidor. La generación sigue apagada y no consume procesamiento.'}
+  }catch{status.textContent='Estado: API no disponible en esta versión. La generación sigue apagada.'}
+}
+$('ttsGenerate').addEventListener('click',async()=>{
+  const text=$('ttsText').value.trim(),btn=$('ttsGenerate'),status=$('ttsStatus');
+  if(!text){toast('Escribe primero el texto de la narración.');return}
+  if(text.length>6000){toast('El texto supera 6.000 caracteres.');return}
+  btn.disabled=true;btn.textContent='Generando audio…';status.textContent='Solicitando narración al servidor configurado…';
+  try{
+    const response=await fetch('/api/tts',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text,voice:$('ttsVoice').value})});
+    if(!response.ok){const err=await response.json().catch(()=>({}));throw new Error(err.error||'El servidor de voz no está disponible.')}
+    const blob=await response.blob();if(!blob.type.startsWith('audio/'))throw new Error('El servidor no devolvió un archivo de audio.');
+    if(ttsAudioUrl)URL.revokeObjectURL(ttsAudioUrl);ttsAudioUrl=URL.createObjectURL(blob);
+    const player=$('ttsPlayer');player.src=ttsAudioUrl;player.style.display='block';$('ttsDownload').style.display='flex';
+    $('ttsDownload').onclick=()=>{const a=document.createElement('a');a.href=ttsAudioUrl;a.download='olmer-narracion.mp3';a.click()};
+    const wave=$('ttsWaveform');wave.innerHTML='';
+    try{
+      if(!window.WaveSurfer)await loadScript('https://cdn.jsdelivr.net/npm/wavesurfer.js@7/dist/wavesurfer.min.js');
+      waveSurfer=window.WaveSurfer.create({container:wave,waveColor:'#a78bfa',progressColor:'#67e8f9',cursorColor:'#ffffff',barWidth:2,barGap:2,height:52,normalize:true});
+      await waveSurfer.load(ttsAudioUrl);
+      waveSurfer.on('interaction',()=>waveSurfer.play());
+      player.addEventListener('play',()=>waveSurfer?.play(),{once:true});
+    }catch{wave.textContent='Audio listo. Usa el reproductor de abajo.'}
+    status.textContent='Narración generada. Puedes escucharla o descargarla.';
+    toast('Narración lista.');
+  }catch(err){status.textContent=err.message;toast(err.message)}
+  finally{btn.disabled=false;btn.textContent='♫ Generar narración'}
+});
+refreshTtsStatus();
 $('clearData').addEventListener('click',()=>{if(confirm('¿Borrar todos los proyectos guardados en este navegador? Esta acción no se puede deshacer.')){localStorage.removeItem('olmerStudioProjects');projects=[];toast('Datos locales borrados.')}});updateStats();
 if($('providerCards'))refreshProviders();
 })();
